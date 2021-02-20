@@ -15,6 +15,13 @@ const cancelIdleCallback = window.cancelIdleCallback || function (id) {
   clearTimeout(id)
 }
 
+/// lauer3912: Intersection Observer API提供了一种异步检测目标元素与祖先元素或 viewport 相交情况变化的方法。
+/// 参考：https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API
+/// 应用的场景:
+///  1.图片懒加载——当图片滚动到可见时才进行加载
+///  2.内容无限滚动——也就是用户滚动到接近内容底部时直接加载更多，而无需用户操作翻页，给用户一种网页可以无限滚动的错觉
+///  3.检测广告的曝光情况——为了计算广告收益，需要知道广告元素的曝光情况
+///  4.在用户看见某个区域时执行任务或播放动画
 const observer = window.IntersectionObserver && new window.IntersectionObserver((entries) => {
   entries.forEach(({ intersectionRatio, target: link }) => {
     if (intersectionRatio <= 0 || !link.__prefetch) {
